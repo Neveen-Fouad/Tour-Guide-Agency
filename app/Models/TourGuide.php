@@ -18,4 +18,16 @@ public function getJWTCustomClaims()
         'is_approved' => $this->is_approved,
     ];
 }
+    protected $fillable = [
+        'name', 'email', 'password', 'phone', 'area',
+        'price_per_hour', 'age', 'gender', 'language',
+        'guide_pic', 'license_pic', 'is_approved',
+    ];
+
+    protected $hidden = ['password']; // never return password in API responses
+
+    protected $casts = [
+        'is_approved' => 'boolean',
+        'price_per_hour' => 'float',
+    ];
 }
