@@ -1,0 +1,16 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TourGuideController;
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+
+Route::get('/GuideData/name/{name}', [TourGuideController::class, 'getByName']);
+Route::get('/GuideData/area/{area}', [TourGuideController::class, 'getByArea']);
+Route::get('/GuideData/PricePerHour/{price}', [TourGuideController::class, 'getByPrice']);
+Route::get('/GuideData/Languages/{language}', [TourGuideController::class, 'getByLanguage']);
+Route::get('/ApprovedGuidesNumber', [TourGuideController::class, 'approvedCount']);
+Route::get('/PendingGuidesNumber', [TourGuideController::class, 'pendingCount']);
