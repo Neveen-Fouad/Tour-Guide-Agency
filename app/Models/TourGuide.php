@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TourGuideLanguage;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Notifications\Notifiable;
 
-class TourGuide extends Model
+class TourGuide extends Model implements JWTSubject, CanResetPasswordContract
 {
 // Authentication
+use Notifiable, CanResetPassword;
 public function getJWTIdentifier()
 {
     return $this->getKey();
@@ -21,8 +26,8 @@ public function getJWTCustomClaims()
 }
     protected $fillable = [
         'name', 'email', 'password', 'phone', 'area',
-        'price_per_hour', 'age', 'gender', 'language',
-        'guide_pic', 'license_pic', 'is_approved',
+        'price_per_hour', 'age', 'gender',
+        'image', 'licence', 'is_approved',
     ];
 
     protected $hidden = ['password']; // never return password in API responses
