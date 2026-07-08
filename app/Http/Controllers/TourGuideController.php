@@ -33,7 +33,10 @@ public function getByPrice($price)
 //guides who speak a given language
 public function getByLanguage($language)
 {
-    $guides = TourGuide::where('language', 'like', '%' . $language . '%')->get();
+    $guides = TourGuide::whereHas('languages', function ($query) use ($language) {
+        $query->where('language', 'like', '%' . $language . '%');
+    })->get();
+
     return response()->json($guides);
 }
 

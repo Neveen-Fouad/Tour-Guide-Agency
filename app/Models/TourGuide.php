@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\TourGuideLanguage;
 
 class TourGuide extends Model
 {
@@ -30,4 +31,10 @@ public function getJWTCustomClaims()
         'is_approved' => 'boolean',
         'price_per_hour' => 'float',
     ];
+    public function languages()
+{
+    return $this->hasMany(TourGuideLanguage::class, 'Tour_Guide_id');
+}
+
+    
 }
