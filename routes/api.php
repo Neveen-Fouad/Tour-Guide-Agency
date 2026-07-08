@@ -1,13 +1,11 @@
 <?php
 use App\Http\Controllers\TouristController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TourGuideController;
 use App\Http\Controllers\ReviewController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
 Route::get('/GuideData/name/{name}', [TourGuideController::class, 'getByName']);
 Route::get('/GuideData/area/{area}', [TourGuideController::class, 'getByArea']);
@@ -47,3 +45,14 @@ Route::get('/AllTouristsNumber', [TouristController::class, 'count']);
 Route::patch('/TouristData/{id}', [TouristController::class, 'update']);
 
 Route::delete('/TouristData/{id}', [TouristController::class, 'destroy']);
+
+// auth
+Route::post('/TouristAuth',[AuthController::class,'registerTourist']);
+Route::post('/GuideAuth',[AuthController::class,'registerTourGuide']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/forgetPassword',[AuthController::class,'forgetPassword']);
+Route::post('/resetPassword',[AuthController::class,'resetPassword']);
+// middleware
+    Route::post('/logout',[AuthController::class,'logout']);
+    Route::post('/refresh',[AuthController::class,'refresh']);
+    Route::get('/profile',[AuthController::class,'me']);

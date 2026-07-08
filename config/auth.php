@@ -66,6 +66,14 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
         ],
+        'tourists' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tourist::class,
+        ],
+        'tour_guides' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\TourGuide::class,
+    ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -96,6 +104,18 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'tourists' => [
+            'provider' => 'tourists',
+            'table' => 'tourist_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'tour_guides' => [
+            'provider' => 'tour_guides',
+            'table' => 'guide_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
