@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Request extends Model
 {
-    //
+     public function review(): HasOne
+    {
+        return $this->HasOne(Review::class);
+    }
+   
 }

@@ -17,4 +17,9 @@ public function getJWTCustomClaims()
         'role' => 'Tourist',
     ];
 }
+
+ public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
 }
