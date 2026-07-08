@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateTouristRequest;
 use App\Http\Requests\GetTouristsRequest;
 use App\Http\Resources\TouristResource;
 use App\Models\Tourist;
@@ -68,9 +69,61 @@ class TouristController extends Controller
                 'message' => 'Tourist not found.',
             ], 404);
         }
+        
 
         return response()->json([
             'data' => new TouristResource($tourist),
         ], 200);
     }
+    public function count(): JsonResponse
+{
+    $count = Cache::remember('tourists_count', now()->addMinutes(60), function () {
+        return Tourist::count();
+    });
+
+    return response()->json([
+        'No_of_tourists' => $count,
+    ], 200);
+}
+
+public function update(UpdateTouristRequest $request, int $id): JsonResponse
+{
+    $tourist = Tourist::find($id);
+
+    if (! $tourist) {
+        return response()->json([
+            'message' => 'Tourist not found.',
+        ], 404);
+    }
+
+    $tourist->update($request->validated());
+
+    Cache::forget("tourist_{$id}");
+    Cache::forget('tourists_count');
+
+    return response()->json([
+        'message' => 'Tourist updated successfully.',
+        'data' => new TouristResource($tourist),
+    ], 200);
+}
+
+public function destroy(int $id): JsonResponse
+{
+    $tourist = Tourist::find($id);
+
+    if (! $tourist) {
+        return response()->json([
+            'message' => 'Tourist not found.',
+        ], 404);
+    }
+
+    $tourist->delete();
+
+    Cache::forget("tourist_{$id}");
+    Cache::forget('tourists_count');
+
+    return response()->json([
+        'message' => 'Tourist deleted successfully.',
+    ], 200);
+}
 }
