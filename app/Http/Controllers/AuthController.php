@@ -18,7 +18,10 @@ class AuthController extends Controller
         try {
             $validated = $request->validate([
                 'TouristName' => 'required|string|max:50',
-                'TouristEmail' => 'required|email|unique:tourists,email',
+                'TouristEmail' => ['required', 'email', 'unique:tourists,email',
+                    function ($attribute, $value, $fail) {
+                        if (TourGuide::where('email', $value)->exists()) {
+                            $fail('This email is already registered as a tour guide.');}}],
                 'TouristPassword' => 'required|string|min:8|confirmed',
                 'TouristPhone' => 'required|string|max:20',
                 'TouristAge' => 'required|integer|min:16|max:120',
@@ -51,7 +54,10 @@ class AuthController extends Controller
         try {
             $validated = $request->validate([
                 'GuideName' => 'required|string|max:50',
-                'GuideEmail' => 'required|email|unique:tour_guides,email',
+                'GuideEmail' => ['required', 'email', 'unique:tour_guides,email',
+                    function ($attribute, $value, $fail) {
+                        if (Tourist::where('email', $value)->exists()) {
+                            $fail('This email is already registered as a tourist.');}}],
                 'GuidePassword' => 'required|string|min:8|confirmed',
                 'GuidePhone' => 'required|string|max:20',
                 'GuideGender' => 'required|in:male,female',
