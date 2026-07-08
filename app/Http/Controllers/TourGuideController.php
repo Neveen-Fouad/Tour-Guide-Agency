@@ -57,4 +57,42 @@ public function pendingCount()
     return response()->json(['No_of_pending_guides' => $count]);
 }
 
+//single guide by id
+public function getById($id)
+{
+    $guide = TourGuide::findOrFail($id);
+    return response()->json($guide);
+}
+
+//paginated list of all guides
+public function getAllPaginated()
+{
+    $guides = TourGuide::paginate(10);
+    return response()->json($guides);
+}
+
+//update a guide's info
+public function update(Request $request, $id)
+{
+    $guide = TourGuide::findOrFail($id);
+    $guide->update($request->all());
+    return response()->json($guide);
+}
+
+//delete a guide
+public function destroy($id)
+{
+    $guide = TourGuide::findOrFail($id);
+    $guide->delete();
+    return response()->json(['message' => 'Guide deleted successfully']);
+}
+
+//approve or reject a guide
+public function updateApprovalStatus(Request $request)
+{
+    $guide = TourGuide::findOrFail($request->guide_id);
+    $guide->update(['is_approved' => $request->is_approved]);
+    return response()->json($guide);
+}
+
 }

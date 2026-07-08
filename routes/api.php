@@ -14,3 +14,10 @@ Route::get('/GuideData/PricePerHour/{price}', [TourGuideController::class, 'getB
 Route::get('/GuideData/Languages/{language}', [TourGuideController::class, 'getByLanguage']);
 Route::get('/ApprovedGuidesNumber', [TourGuideController::class, 'approvedCount']);
 Route::get('/PendingGuidesNumber', [TourGuideController::class, 'pendingCount']);
+
+
+Route::get('/GuideData/id/{id}', [TourGuideController::class,'getById']);
+Route::get('/AllGuides/page',[TourGuideController::class,'getAllPaginated']);
+Route::patch('/GuideData/id/{id}', [TourGuideController::class, 'update']);
+Route::delete('/GuideData/id/{id}', [TourGuideController::class, 'destroy']);
+Route::patch('/ApprovalStatus', [TourGuideController::class, 'updateApprovalStatus']);
