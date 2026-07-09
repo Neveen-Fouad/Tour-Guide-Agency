@@ -76,7 +76,7 @@ class AuthController extends Controller
             $user = TourGuide::create([
                 'name' => $validated['GuideName'],
                 'email' => $validated['GuideEmail'],
-                'password' => Hash::make($validated['password']),
+                'password' => Hash::make($validated['GuidePassword']),
                 'phone' => $validated['GuidePhone'],
                 'gender' => $validated['GuideGender'],
                 'age' => $validated['GuideAge'],

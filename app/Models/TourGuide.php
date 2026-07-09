@@ -8,11 +8,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TourGuide extends Model implements JWTSubject, CanResetPasswordContract
 {
 // Authentication
-use Notifiable, CanResetPassword;
+use Notifiable, CanResetPassword, HasFactory;
 public function getJWTIdentifier()
 {
     return $this->getKey();
