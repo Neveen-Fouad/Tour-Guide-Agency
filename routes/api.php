@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TourGuideController;
 use App\Http\Controllers\ReviewController;
-// use App\Http\Middleware\IsAdmin;
 
+// jwt.verify middleware => user must be logged in
+// admin middleware => admin only access
 
 Route::get('/GuideData/name/{name}', [TourGuideController::class, 'getByName']);
 Route::get('/GuideData/area/{area}', [TourGuideController::class, 'getByArea']);
@@ -18,8 +19,7 @@ Route::get('/PendingGuidesNumber', [TourGuideController::class, 'pendingCount'])
 
 Route::get('/GuideData/id/{id}', [TourGuideController::class,'getById']);
 Route::get('/AllGuides/page',[TourGuideController::class,'getAllPaginated']);
-Route::patch('/GuideData/id/{id}', [TourGuideController::class, 'update']);
-// only admin 
+Route::middleware('jwt.verify')->patch('/GuideData/id/{id}', [TourGuideController::class, 'update']);
 Route::middleware('admin')->group(function () {
 Route::delete('/GuideData/id/{id}', [TourGuideController::class, 'destroy']);
 Route::patch('/ApprovalStatus', [TourGuideController::class, 'updateApprovalStatus']);
@@ -28,7 +28,7 @@ Route::get('/reviews', [ReviewController::class, 'index']);
 Route::get('/reviews/tourGuide/{id}', [ReviewController::class, 'getByTourGuideId']);
 Route::get('/reviews/star/{starRating}', [ReviewController::class, 'starFiltration']);
 Route::get('/reviews/averageRating/{id}', [ReviewController::class, 'getGuideAverageRating']);
-Route::post('/reviews', [ReviewController::class, 'store']);
+Route::middleware('jwt.verify')->post('/reviews', [ReviewController::class, 'store']);
 Route::get('/reviews/stats', [ReviewController::class, 'reviewStats']);
 
 
@@ -44,7 +44,7 @@ Route::get('/TouristData/{id}', [TouristController::class, 'show']);
 
 Route::get('/AllTouristsNumber', [TouristController::class, 'count']);
 
-Route::patch('/TouristData/{id}', [TouristController::class, 'update']);
+Route::middleware('jwt.verify')->patch('/TouristData/{id}', [TouristController::class, 'update']);
 
 Route::middleware('admin')->delete('/TouristData/{id}', [TouristController::class, 'destroy']);
 
