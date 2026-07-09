@@ -34,7 +34,7 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'rating' => 'required|numeric|min:1|max:5',
+            'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string',
             'Tourist_id' => 'required|exists:tourists,id',
             'Request_id' => 'required|exists:requests,id',
@@ -46,8 +46,11 @@ class ReviewController extends Controller
     }
 
 
-    public function starFiltration($starRating)
+    public function starFiltration(Request $request)
     {
+        $starRating = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ])['rating'];
         $reviews = Review::where('rating', $starRating)->get();
         return response()->json($reviews);
     }
@@ -59,14 +62,18 @@ class ReviewController extends Controller
         $guide = TourGuide::findOrFail($id);
 
         $average = $guide->reviews()->avg('rating');
-
         
-        $formattedAverage = round($average) ?? 0;
+        $formattedAverage = round((float) ($average ?? 0), 1);
+          
+        $formattedAverage = round($average);
+
 
         return response()->json([
             'tour_guide_id' => $guide->id,
-            'average_rating' => $formattedAverage
+            'average_rating' => $formattedAverage 
         ]);
+        
+    
     }
 
     public function reviewStats()

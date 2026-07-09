@@ -22,7 +22,7 @@ class AuthController extends Controller
                     function ($attribute, $value, $fail) {
                         if (TourGuide::where('email', $value)->exists()) {
                             $fail('This email is already registered as a tour guide.');}}],
-                'password' => 'required|string|min:8|confirmed',
+                'TouristPassword' => 'required|string|min:8|confirmed',
                 'TouristPhone' => 'required|string|max:20',
                 'TouristAge' => 'required|integer|min:16|max:120',
                 'TouristGender' => 'required|in:male,female'
