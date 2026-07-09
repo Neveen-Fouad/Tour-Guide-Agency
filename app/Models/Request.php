@@ -6,9 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Request extends Model
 {
-     public function review(): HasOne
+    protected $fillable = [
+        'is_approved',
+        'destination',
+        'status',
+        'preferred_language',
+        'plan',
+        'arrival_time',
+        'departure_time'
+    ];
+    protected $guarded =[
+        'id',
+        'Tourist_id',
+        'Tour_Guide_id',];
+    public function tourist()
     {
-        return $this->HasOne(Review::class);
+        return $this->belongsTo(Tourist::class, 'Tourist_id');
+    }
+
+    public function tourGuide()
+    {
+        return $this->belongsTo(TourGuide::class, 'Tour_Guide_id');
+    }
+        public function review(){
+        return $this->HasOne(Review::class, 'Request_id');
     }
    
 }
