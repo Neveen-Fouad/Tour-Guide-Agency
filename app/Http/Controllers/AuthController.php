@@ -18,7 +18,10 @@ class AuthController extends Controller
         try {
             $validated = $request->validate([
                 'TouristName' => 'required|string|max:50',
-                'TouristEmail' => 'required|email|unique:tourists,email',
+                'TouristEmail' => ['required', 'email', 'unique:tourists,email',
+                    function ($attribute, $value, $fail) {
+                        if (TourGuide::where('email', $value)->exists()) {
+                            $fail('This email is already registered as a tour guide.');}}],
                 'TouristPassword' => 'required|string|min:8|confirmed',
                 'TouristPhone' => 'required|string|max:20',
                 'TouristAge' => 'required|integer|min:16|max:120',
@@ -51,18 +54,25 @@ class AuthController extends Controller
         try {
             $validated = $request->validate([
                 'GuideName' => 'required|string|max:50',
-                'GuideEmail' => 'required|email|unique:tour_guides,email',
+                'GuideEmail' => ['required', 'email', 'unique:tour_guides,email',
+                    function ($attribute, $value, $fail) {
+                        if (Tourist::where('email', $value)->exists()) {
+                            $fail('This email is already registered as a tourist.');}}],
                 'GuidePassword' => 'required|string|min:8|confirmed',
                 'GuidePhone' => 'required|string|max:20',
                 'GuideGender' => 'required|in:male,female',
                 'GuideAge' => 'required|integer|min:18|max:80',
                 'GuideArea' => 'nullable|string|max:255',
                 'GuidePricePerHour' => 'required|numeric|min:0',
-                'Licence_pic' => 'required|string',
-                'guide_pic' => 'nullable|string|max:255',
+                'Licence_pic' => 'required|image|max:5120',
+                'guide_pic' => 'nullable|image|max:5120',
                 'GuideLanguages' => 'required|array',
                 'GuideLanguages.*' => 'string|max:30'
             ]);
+            $licencePath = $request->file('Licence_pic')->store('licences', 'public');
+            $guidePicPath = $request->hasFile('guide_pic')
+            ? $request->file('guide_pic')->store('guide_pics', 'public')
+            : null;
             $user = TourGuide::create([
                 'name' => $validated['GuideName'],
                 'email' => $validated['GuideEmail'],
@@ -72,8 +82,8 @@ class AuthController extends Controller
                 'age' => $validated['GuideAge'],
                 'area' => $validated['GuideArea'] ?? null,
                 'price_per_hour' => $validated['GuidePricePerHour'],
-                'licence' => $validated['Licence_pic'],
-                'image' => $validated['guide_pic'] ?? null,
+                'licence' => $licencePath,
+                'image' => $guidePicPath,
                 'is_approved' => false
         ]);
 
