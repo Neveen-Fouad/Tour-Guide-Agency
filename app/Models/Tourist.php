@@ -65,10 +65,12 @@ class Tourist extends Authenticatable implements JWTSubject, CanResetPasswordCon
             'role' => 'Tourist',
         ];
     }
-
+public function requests(){
+    return $this->hasMany(Request::class, 'Tourist_id');
+}
  
 
- public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class);}
+ public function reviews(){
+        return $this->hasMany(Review::class, 'Tourist_id');
+        }
 }
