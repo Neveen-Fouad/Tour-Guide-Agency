@@ -25,7 +25,6 @@ class Tourist extends Authenticatable implements JWTSubject, CanResetPasswordCon
         'phone',
         'age',
         'gender',
-        'profile_picture',
     ];
 
     protected $hidden = [
