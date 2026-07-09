@@ -1,5 +1,8 @@
 <?php
 use Illuminate\Http\Request;
+
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\JwtVerify;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,7 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+        'jwt.verify' => JwtVerify::class,
+        'admin' => IsAdmin::class, 
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (\Throwable $e, Request $request) {

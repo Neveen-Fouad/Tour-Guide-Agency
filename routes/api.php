@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TourGuideController;
 use App\Http\Controllers\ReviewController;
+// use App\Http\Middleware\IsAdmin;
 
 
 Route::get('/GuideData/name/{name}', [TourGuideController::class, 'getByName']);
@@ -18,6 +19,8 @@ Route::get('/PendingGuidesNumber', [TourGuideController::class, 'pendingCount'])
 Route::get('/GuideData/id/{id}', [TourGuideController::class,'getById']);
 Route::get('/AllGuides/page',[TourGuideController::class,'getAllPaginated']);
 Route::patch('/GuideData/id/{id}', [TourGuideController::class, 'update']);
+// only admin 
+Route::middleware('admin')->group(function () {
 Route::delete('/GuideData/id/{id}', [TourGuideController::class, 'destroy']);
 Route::patch('/ApprovalStatus', [TourGuideController::class, 'updateApprovalStatus']);
 
@@ -28,14 +31,21 @@ Route::get('/Reviews/{starRating}', [ReviewController::class, 'starFiltration'])
 Route::get('/Reviews/averageRating/{id}', [ReviewController::class, 'getGuideAverageRating']);
 Route::post('/Reviews', [ReviewController::class, 'store']);
 Route::get('/reviewsStats', [ReviewController::class, 'reviewStats']);
+});
+Route::get('/reviews', [ReviewController::class, 'index']);
+Route::get('/reviews/tourGuide/{id}', [ReviewController::class, 'getByTourGuideId']);
+Route::get('/reviews/star/{starRating}', [ReviewController::class, 'starFiltration']);
+Route::get('/reviews/averageRating/{id}', [ReviewController::class, 'getGuideAverageRating']);
+Route::post('/reviews', [ReviewController::class, 'store']);
+Route::get('/reviews/stats', [ReviewController::class, 'reviewStats']);
 
 
 
 
 // Tourist Endpoints 
 
-// GET /api/AllTourists  
-Route::get('/AllTourists', [TouristController::class, 'index']);
+// GET /api/AllTourists 
+Route::middleware('admin')->get('/AllTourists', [TouristController::class, 'index']);
 
 // GET /api/TouristData/{id}  
 Route::get('/TouristData/{id}', [TouristController::class, 'show']);
@@ -44,7 +54,7 @@ Route::get('/AllTouristsNumber', [TouristController::class, 'count']);
 
 Route::patch('/TouristData/{id}', [TouristController::class, 'update']);
 
-Route::delete('/TouristData/{id}', [TouristController::class, 'destroy']);
+Route::middleware('admin')->delete('/TouristData/{id}', [TouristController::class, 'destroy']);
 
 // auth
 Route::post('/TouristAuth',[AuthController::class,'registerTourist']);
@@ -52,7 +62,8 @@ Route::post('/GuideAuth',[AuthController::class,'registerTourGuide']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/forgetPassword',[AuthController::class,'forgetPassword']);
 Route::post('/resetPassword',[AuthController::class,'resetPassword']);
-// middleware
+Route::middleware('jwt.verify')->group(function () {
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/refresh',[AuthController::class,'refresh']);
     Route::get('/profile',[AuthController::class,'me']);
+});
