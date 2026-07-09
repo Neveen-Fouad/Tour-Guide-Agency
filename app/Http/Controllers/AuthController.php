@@ -58,7 +58,7 @@ class AuthController extends Controller
                     function ($attribute, $value, $fail) {
                         if (Tourist::where('email', $value)->exists()) {
                             $fail('This email is already registered as a tourist.');}}],
-                'password' => 'required|string|min:8|confirmed',
+                'GuidePassword' => 'required|string|min:8|confirmed',
                 'GuidePhone' => 'required|string|max:20',
                 'GuideGender' => 'required|in:male,female',
                 'GuideAge' => 'required|integer|min:18|max:80',
@@ -76,7 +76,7 @@ class AuthController extends Controller
             $user = TourGuide::create([
                 'name' => $validated['GuideName'],
                 'email' => $validated['GuideEmail'],
-                'password' => Hash::make($validated['password']),
+                'password' => Hash::make($validated['GuidePassword']),
                 'phone' => $validated['GuidePhone'],
                 'gender' => $validated['GuideGender'],
                 'age' => $validated['GuideAge'],

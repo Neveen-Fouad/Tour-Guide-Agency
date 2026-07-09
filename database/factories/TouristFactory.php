@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,11 +20,10 @@ class TouristFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => 'password',
+            'password' => Hash::make('password'),
             'phone' => fake()->phoneNumber(),
             'age' => fake()->numberBetween(18, 60),
-            'gender' => fake()->randomElement(['Male', 'Female']),
-            'profile_picture' => null,
+            'gender' => fake()->randomElement(['male', 'female']),
         ];
     }
 }
