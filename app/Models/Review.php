@@ -19,14 +19,14 @@ class Review extends Model
         'Request_id'
     ];
 
-    public function tourist(): BelongsTo
+    public function tourist()
     {
-        return $this->belongsTo(Tourist::class);
+        return $this->belongsTo(Tourist::class,'Tourist_id');
     }
 
-     public function request(): BelongsTo
+     public function request()
     {
-        return $this->belongsTo(Request::class);
+        return $this->belongsTo(Request::class,'Request_id');
     }
    
    use HasFactory;
