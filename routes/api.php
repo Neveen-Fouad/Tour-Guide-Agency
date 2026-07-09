@@ -1,10 +1,10 @@
 <?php
 use App\Http\Controllers\TouristController;
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TourGuideController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RequestController;
 
 // jwt.verify middleware => user must be logged in
 // admin middleware => admin only access
@@ -19,7 +19,7 @@ Route::get('/PendingGuidesNumber', [TourGuideController::class, 'pendingCount'])
 
 Route::get('/GuideData/id/{id}', [TourGuideController::class,'getById']);
 Route::get('/AllGuides/page',[TourGuideController::class,'getAllPaginated']);
-Route::middleware('jwt.verify')->patch('/GuideData/id/{id}', [TourGuideController::class, 'update']);
+Route::patch('/GuideData/id/{id}', [TourGuideController::class, 'update']);
 Route::middleware('admin')->group(function () {
 Route::delete('/GuideData/id/{id}', [TourGuideController::class, 'destroy']);
 Route::patch('/ApprovalStatus', [TourGuideController::class, 'updateApprovalStatus']);
@@ -67,3 +67,11 @@ Route::middleware('jwt.verify')->group(function () {
     Route::post('/refresh',[AuthController::class,'refresh']);
     Route::get('/profile',[AuthController::class,'me']);
 });
+
+Route::Get('/requests', [RequestController::class, 'index']);
+Route::Get('/requests/tourist/{id}', [RequestController::class, 'getByTouristId']);
+Route::Get('/requests/tourguide/{id}', [RequestController::class,'getByTourGuideId']);
+Route::Get('/requests/count/{id}', [RequestController::class, 'countRequests']);
+Route::Get('/requests/accepted/count/{id}', [RequestController::class, 'CountAcceptedRequests']);
+Route::middleware('jwt.verify')->patch('/requests/{id}', [RequestController::class, 'update']);
+Route::patch('/requests/approval/{id}', [RequestController::class, 'updateApprovalStatus']);
