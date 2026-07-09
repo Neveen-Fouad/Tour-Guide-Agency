@@ -22,7 +22,7 @@ class AuthController extends Controller
                     function ($attribute, $value, $fail) {
                         if (TourGuide::where('email', $value)->exists()) {
                             $fail('This email is already registered as a tour guide.');}}],
-                'TouristPassword' => 'required|string|min:8|confirmed',
+                'password' => 'required|string|min:8|confirmed',
                 'TouristPhone' => 'required|string|max:20',
                 'TouristAge' => 'required|integer|min:16|max:120',
                 'TouristGender' => 'required|in:male,female'
@@ -30,7 +30,7 @@ class AuthController extends Controller
             $user = Tourist::create([
                 'name' => $validated['TouristName'],
                 'email' => $validated['TouristEmail'],
-                'password' => Hash::make($validated['TouristPassword']),
+                'password' => Hash::make($validated['password']),
                 'phone' => $validated['TouristPhone'],
                 'age' => $validated['TouristAge'],
                 'gender' => $validated['TouristGender']
@@ -58,7 +58,7 @@ class AuthController extends Controller
                     function ($attribute, $value, $fail) {
                         if (Tourist::where('email', $value)->exists()) {
                             $fail('This email is already registered as a tourist.');}}],
-                'GuidePassword' => 'required|string|min:8|confirmed',
+                'password' => 'required|string|min:8|confirmed',
                 'GuidePhone' => 'required|string|max:20',
                 'GuideGender' => 'required|in:male,female',
                 'GuideAge' => 'required|integer|min:18|max:80',
@@ -76,7 +76,7 @@ class AuthController extends Controller
             $user = TourGuide::create([
                 'name' => $validated['GuideName'],
                 'email' => $validated['GuideEmail'],
-                'password' => Hash::make($validated['GuidePassword']),
+                'password' => Hash::make($validated['password']),
                 'phone' => $validated['GuidePhone'],
                 'gender' => $validated['GuideGender'],
                 'age' => $validated['GuideAge'],
