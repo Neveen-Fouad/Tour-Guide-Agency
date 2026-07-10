@@ -113,7 +113,7 @@ class AuthController extends Controller
         // tourist login
         $user = Tourist::where('email', $credentials['email'])->first();
         if ($user && Hash::check($credentials['password'], $user->password)) {
-        $token = JWTAuth::fromUser($user);
+        $token = JWTAuth::claims(['role' => 'tourist'])->fromUser($user);
         return response()->json([
             'message' => 'Login successful',
             'token' => $token,
@@ -127,7 +127,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Your account is pending approval'
             ], 403);}
-            $token = JWTAuth::fromUser($user);
+            $token = JWTAuth::claims(['role' => 'tour_guide'])->fromUser($user);
         return response()->json([
             'message' => 'Login successful',
             'token' => $token,
