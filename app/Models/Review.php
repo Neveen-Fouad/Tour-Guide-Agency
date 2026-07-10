@@ -10,13 +10,14 @@ class Review extends Model
     use HasFactory;
     protected $fillable =[
         'rating',
-        'comment'
+        'comment',
+         'Tourist_id',
+        'Request_id'
     ];
 
     protected $guarded=[
         'id',
-        'Tourist_id	',
-        'Request_id'
+       
     ];
 
     public function tourist()
@@ -28,6 +29,5 @@ class Review extends Model
     {
         return $this->belongsTo(Request::class,'Request_id');
     }
-   
-   use HasFactory;
+
 }

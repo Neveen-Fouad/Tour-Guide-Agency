@@ -30,7 +30,7 @@ class AuthController extends Controller
             $user = Tourist::create([
                 'name' => $validated['TouristName'],
                 'email' => $validated['TouristEmail'],
-                'password' => Hash::make($validated['password']),
+                'password' => Hash::make($validated['TouristPassword']),
                 'phone' => $validated['TouristPhone'],
                 'age' => $validated['TouristAge'],
                 'gender' => $validated['TouristGender']

@@ -20,9 +20,17 @@ return Application::configure(basePath: dirname(__DIR__))
         'admin' => IsAdmin::class, 
     ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (\Throwable $e, Request $request) {
-            $status = $e->getCode() ?: 500;
-            return response()->json(['message' => $e->getMessage()], $status);
+            
+            // Get the code from the exception
+            $code = $e->getCode();
+            
+            // If it's a valid numeric HTTP code, cast to int. Otherwise, force it to 500.
+            $status = (is_numeric($code) && $code >= 100 && $code <= 599) ? (int) $code : 500;
+            
+            return response()->json([
+                'message' => $e->getMessage()
+            ], $status);
         });
     })->create();

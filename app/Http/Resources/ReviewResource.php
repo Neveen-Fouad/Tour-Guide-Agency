@@ -20,7 +20,7 @@ class ReviewResource extends JsonResource
         'comment' => $this->comment,
         'tourist_name' => $this->tourist->name, 
         'tourist_image' => $this->tourist->image,
-        'tour_guide_name' => $this->tourGuide->name,
+        'tour_guide_name' => $this->request->tourGuide->name,
         ];
     }
 }

@@ -25,21 +25,16 @@ Route::delete('/GuideData/id/{id}', [TourGuideController::class, 'destroy']);
 Route::patch('/ApprovalStatus', [TourGuideController::class, 'updateApprovalStatus']);
 
 
+});
+
+
+
 Route::get('/Reviews', [ReviewController::class, 'index']);
 Route::get('/TourGuideRating/{id}', [ReviewController::class, 'getByTourGuideId']);
 Route::get('/Reviews/{starRating}', [ReviewController::class, 'starFiltration']);
 Route::get('/Reviews/averageRating/{id}', [ReviewController::class, 'getGuideAverageRating']);
 Route::post('/Reviews', [ReviewController::class, 'store']);
 Route::get('/reviewsStats', [ReviewController::class, 'reviewStats']);
-});
-Route::get('/reviews', [ReviewController::class, 'index']);
-Route::get('/reviews/tourGuide/{id}', [ReviewController::class, 'getByTourGuideId']);
-Route::get('/reviews/star/{starRating}', [ReviewController::class, 'starFiltration']);
-Route::get('/reviews/averageRating/{id}', [ReviewController::class, 'getGuideAverageRating']);
-Route::middleware('jwt.verify')->post('/reviews', [ReviewController::class, 'store']);
-Route::get('/reviews/stats', [ReviewController::class, 'reviewStats']);
-
-
 
 
 // Tourist Endpoints 

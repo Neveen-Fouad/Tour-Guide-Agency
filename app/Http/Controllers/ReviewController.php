@@ -6,6 +6,8 @@ use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use App\Models\TourGuide;
 use Illuminate\Http\Request;
+use App\Models\Request as TourRequest;
+use Illuminate\Support\Facades\Gate;
 
 
 class ReviewController extends Controller
@@ -15,16 +17,22 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::with('tourist', 'tourGuide')->get();
+        $reviews = Review::with('tourist', 'request.tourGuide')->get();
         return ReviewResource::collection($reviews);
     }
 
     // public function getByTouristId()
 
     public function getByTourGuideId($id){
-       $guide = TourGuide::FindOrFail($id);
-       $reviews = $guide->reviews;
-       return ReviewResource::collection($reviews);
+      TourGuide::findOrFail($id);
+        $reviews = Review::with(['tourist', 'request.tourGuide'])
+            ->whereHas('request', function ($query) use ($id) {
+                $query->where('Tour_Guide_id', $id); 
+            })
+            ->get();
+
+        // 3. Pass the clean, eager-loaded collection to the Resource
+        return ReviewResource::collection($reviews);
     }
 
 
@@ -33,6 +41,7 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string',
@@ -46,34 +55,29 @@ class ReviewController extends Controller
     }
 
 
-    public function starFiltration(Request $request)
+    public function starFiltration($starRating)
     {
-        $starRating = $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-        ])['rating'];
+      if (!is_numeric($starRating) || $starRating < 1 || $starRating > 5) {
+            return response()->json(['message' => 'Rating must be an integer between 1 and 5'], 422);
+        }
         $reviews = Review::where('rating', $starRating)->get();
+        
         return response()->json($reviews);
     }
 
 
 
-    public function getGuideAverageRating($id)
+  public function getGuideAverageRating($id)
     {
         $guide = TourGuide::findOrFail($id);
-
-        $average = $guide->reviews()->avg('rating');
-        
+        $average = Review::whereHas('request.tourGuide', function ($query) use ($id) {
+            $query->where('Tour_Guide_id', $id);
+        })->avg('rating');
         $formattedAverage = round((float) ($average ?? 0), 1);
-          
-        $formattedAverage = round($average);
-
-
         return response()->json([
             'tour_guide_id' => $guide->id,
             'average_rating' => $formattedAverage 
         ]);
-        
-    
     }
 
     public function reviewStats()

@@ -42,10 +42,6 @@ public function getJWTCustomClaims()
     return $this->hasMany(TourGuideLanguage::class, 'Tour_Guide_id');
 }
 
-public function reviews()
-{
-    return $this->hasManyThrough(Review::class, Request::class,'Tour_Guide_id','Request_id','id','id');
-}
 public function requests(){
     return $this->hasMany(Request::class, 'Tour_Guide_id');
 }
