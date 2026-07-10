@@ -9,6 +9,7 @@ use App\Models\Tourist;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 
 class TouristController extends Controller
 {
@@ -16,6 +17,8 @@ class TouristController extends Controller
 
     public function index(GetTouristsRequest $request): JsonResponse
     {
+        Gate::authorize('viewAny', Tourist::class);
+
         $page    = $request->integer('page', 1);
         $perPage = $request->integer('per_page', 10);
         $search  = $request->string('search', '')->toString();
@@ -95,6 +98,7 @@ public function update(UpdateTouristRequest $request, int $id): JsonResponse
             'message' => 'Tourist not found.',
         ], 404);
     }
+    Gate::authorize('update', $tourist);
 
     $tourist->update($request->validated());
 
@@ -116,6 +120,7 @@ public function destroy(int $id): JsonResponse
             'message' => 'Tourist not found.',
         ], 404);
     }
+    Gate::authorize('delete', $tourist);
 
     $tourist->delete();
 

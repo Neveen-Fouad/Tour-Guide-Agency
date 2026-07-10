@@ -15,12 +15,13 @@ class Request extends Model
         'preferred_language',
         'plan',
         'arrival_time',
-        'departure_time'
+        'departure_time',
+        'Tourist_id',
+        'Tour_Guide_id',
     ];
     protected $guarded =[
         'id',
-        'Tourist_id',
-        'Tour_Guide_id',];
+];
     public function tourist()
     {
         return $this->belongsTo(Tourist::class, 'Tourist_id');

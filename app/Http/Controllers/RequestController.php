@@ -39,7 +39,7 @@ class RequestController extends Controller
          Gate::authorize('create', TourRequest::class);
         $validatedData = $request->validate([
             'Tourist_id' => 'required|exists:tourists,id',
-            'TourGuide_id' => 'required|exists:tour_guides,id',
+            'Tour_Guide_id' => 'required|exists:tour_guides,id',
             'destination' => 'required|string|max:255',
             'arrival_time' => 'required|date',
             'departure_time' => 'required|date|after:arival_time',
@@ -86,7 +86,7 @@ class RequestController extends Controller
         ]);
 
         $tourRequest = TourRequest::findOrFail($id);
-        Gate::authorize('update', TourRequest::class);
+        Gate::authorize('update', $tourRequest);
         $tourRequest->update($validatedData);
 
         return response()->json($tourRequest);

@@ -13,7 +13,7 @@ class TouristPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return in_array($user->email, config('admin.emails'), true);    
     }
 
     /**
@@ -21,7 +21,11 @@ class TouristPolicy
      */
     public function view(User $user, Tourist $tourist): bool
     {
-        return false;
+        $isAdmin = in_array($user->email, config('admin.emails'), true);
+        if ($isAdmin) {
+            return true;
+        }
+        return $user instanceof Tourist && $user->id === $tourist->id;
     }
 
     /**
@@ -37,7 +41,7 @@ class TouristPolicy
      */
     public function update(User $user, Tourist $tourist): bool
     {
-        return false;
+        return $user instanceof Tourist && $user->id === $tourist->id;
     }
 
     /**
@@ -45,7 +49,7 @@ class TouristPolicy
      */
     public function delete(User $user, Tourist $tourist): bool
     {
-        return false;
+        return in_array($user->email, config('admin.emails'), true);
     }
 
     /**
