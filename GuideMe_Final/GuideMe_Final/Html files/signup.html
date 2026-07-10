@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../Css files/signup.css">
+    <title>Guide Me</title>
+</head>
+
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container" id="container">
+
+            <!-- form of tour guide -->
+
+            <div class="form-container sign-up-container">
+                <form id="tourGuide" method="POST">
+
+                    <div class="icon">
+                        <a href="../Html files/landing.html"><i class="fa-solid fa-house"></i></a>
+                    </div>
+
+                    <h1 style="margin-top: 20px;">Tour Guide</h1>
+                    <div class="name-phone">
+                        <input type="text" id="GuideName" placeholder="Name" required />
+                        <input type="text" id="GuidePhone" placeholder="Phone" required />
+                    </div>
+
+                    <input type="email" id="GuideEmail" placeholder="Email" required />
+
+                    <div class="area-lan">
+                        <input type="text" id="GuideArea" placeholder="Area" required />
+                        <input type="text" id="GuideLanguages" placeholder="Languages" required />
+                    </div>
+
+                    <input type="password" id="GuidePassword" placeholder="Password" required />
+
+                    <input type="password" id="GuidePassword_confirmation" placeholder="Confirm Password" required />
+
+                    <div class="date-price">
+                        <input type="number" id="GuideAge" placeholder="Age" required />
+                        <input type="number" id="GuidePricePerHour" placeholder="$ Price/hr" min="0" step="0.01">
+                    </div>
+
+                    <div class="img">
+                        <input type="file" id="guide_pic" accept="image/*" hidden>
+                        <div class="fake-input" onclick="document.getElementById('guide_pic').click()">
+                            Personal Image
+                        </div>
+                        <input type="file" id="License_pic" accept="image/*" hidden>
+                        <div class="fake-input" onclick="document.getElementById('License_pic').click()">
+                            license
+                        </div>
+                    </div>
+
+                    <div class="gender">
+                        <label>
+                            <input type="radio" id="GuideGender" value="male">
+                            Male
+                        </label>
+
+                        <label>
+                            <input type="radio" id="GuideGender" value="female">
+                            Female
+                        </label>
+                    </div>
+
+                    <button type="submit" id="submitbtn" class="btn-primary">Sign Up</button>
+                </form>
+            </div>
+
+            <!-- form of tourist -->
+
+            <div class="form-container sign-up2-container">
+                <form id="tourist" method="POST">
+
+                    <div class="icon">
+                        <a href="../Html files/landing.html"><i class="fa-solid fa-house"></i></a>
+                    </div>
+
+                    <h1 style="margin-top: 20px;">Tourist</h1>
+                    <input type="text" id="TouristName" placeholder="Name" required />
+                    <input type="text" id="TouristPhone" placeholder="Phone" required />
+                    <input type="email" id="TouristEmail" placeholder="Email" required />
+                    <input type="password" id="TouristPassword" placeholder="Password" required />
+                    <input type="password" id="TouristPassword_confirmation" placeholder="Confirm Password" required />
+                    <input type="number" id="TouristAge" placeholder="Age" required />
+                    <div class="gender">
+                        <label>
+                            <input type="radio" id="TouristGender" value="male">
+                            Male
+                        </label>
+
+                        <label>
+                            <input type="radio" id="TouristGender" value="female">
+                            Female
+                        </label>
+                    </div>
+                    <button type="submit" id="submitbtn" class="btn-primary">Sign Up</button>
+                </form>
+            </div>
+
+            <!-- overlay -->
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start your journey with us as a <strong>Tourist</strong></p>
+                        <button class="btn-outline" id="signUp2">Go</button>
+                    </div>
+
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start your journey with us as a <strong>Tour Guide</strong>
+                        </p>
+                        <button class="btn-outline" id="signUp">Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../Js files/signup.js"></script>
+</body>
+
+
+</html>/

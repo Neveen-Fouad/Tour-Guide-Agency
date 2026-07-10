@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Guide Profile</title>
+
+    <link rel="stylesheet" href="../Css files/tourGuideProfile.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+        <nav class="navbar">
+
+    <div class="logo">
+        <h2>GuideMe</h2>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="../Html files/landing.html">Home</a></li>
+        <li><a href="../Html files/index.html">Booking</a></li>
+        <li><a href="../Html files/index.html">Tour guides</a></li>
+
+    </ul>
+
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search...">
+    </div>
+
+    <div class="nav-btns">
+        <a href="../Html files/login.html">Log In</a>
+        <button>Sign Up</button>
+    </div>
+    <div class="profile-menu">
+
+    <button class="profile-btn">
+        <i class="fa-regular fa-circle-user"></i>
+    </button>
+
+    <div class="dropdown">
+
+        <a href="../Html files/tourguide_profile.html">
+            <i class="fa-regular fa-user"></i>
+            Profile
+        </a>
+
+        <hr>
+
+        <a onclick="logout()" class="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Log Out
+        </a>
+
+    </div>
+
+</div>
+
+</nav>
+
+
+
+
+    <main>
+
+
+
+        <section class="profile-card">
+
+            <div class="profile-image">
+
+                <img src="../imgs/tourguide picture.png" alt="Guide" id="image">
+
+            </div>
+
+            <div class="profile-info">
+
+                <h1 id="name">Ahmed Hassan</h1>
+
+                <p class="locations" id="area"> <i class="fa-solid fa-location-crosshairs"></i> Cairo, Egypt</p>
+
+                <p class="pricehr" id="price_per_hour"> <i class="fa-solid fa-money-bill"></i> $45 / hour</p>
+
+                <!-- <p class="reviewsAvg" id="average_rating"><i class="fa-solid fa-star"></i> 5.0 (128 Reviews)</p> -->
+
+                <p class="languages" id="languages"> <i class="fa-solid fa-earth-asia"></i> English, Arabic, French</p>
+
+
+
+            </div>
+
+            <div class="profile-button">
+
+                <button> <i class="fa-regular fa-pen-to-square" id="editprofilebuttn"></i> Edit Profile</button>
+
+            </div>
+
+        </section>
+
+
+
+
+
+        <section class="statistics">
+
+            <div class="card totalbookingcard">
+                <i class="fa-solid fa-calendar"></i>
+                <h2 id="total_booking_num">342</h2>
+                <p>Total Bookings</p>
+            </div>
+
+            <div class="card totalacceptedcard">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h2 id="total_accepted_num">318</h2>
+                <p>Completed Tours</p>
+            </div>
+
+            <div class="card avgratingcard">
+                <i class="fa-solid fa-ranking-star"></i>
+                <h2 id="average_rating">4.98</h2>
+                <p>Average Rating</p>
+            </div>
+
+        </section>
+
+
+
+
+
+        <section class="content">
+
+
+            <div class="left-column">
+
+
+
+                <div class="reviews">
+
+
+                    <div class="reviews">
+
+                        <h2>Latest Tourist Reviews</h2>
+
+                        <div id="reviewsContainer"></div>
+
+                    </div>
+
+                    <!-- <h2>Latest Tourist Reviews</h2>
+
+                    <div class="review">
+
+                        <img src="imgs/tourguide picture.png" id="tourist_image">
+
+                        <div class="review-content">
+
+                            <h4 id="tourist_name">Sarah Jenkins</h4>
+
+                            <p id="comment">Amazing guide!</p>
+
+                        </div>
+
+                        <div class="stars" id="rating">
+
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                        </div>
+
+
+
+                    </div> -->
+
+                    <!-- <div class="review">
+
+                        <img src="imgs/tourguide picture.png">
+
+                        <div class="review-content">
+
+                            <h4>Mark Thompson</h4>
+
+                            <p>Highly recommended.</p>
+
+                        </div>
+
+                        <div class="stars">
+
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                        </div>
+
+
+                    </div> -->
+
+                </div>
+
+
+
+
+
+                <div class="bookings">
+
+                    <h2>Booking Requests</h2>
+
+                    <div id="cartona"></div>
+
+                </div>
+
+            </div>
+
+
+            <aside class="contact">
+
+                <h2>Contact Details</h2>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    <span id="phone"><strong>Phone:</strong> +20 123 456 7890</span>
+                </p>
+
+                <p>
+                    <i class="fa-regular fa-envelope"></i>
+                    <span id="email"><strong>Email:</strong> ahmed.guide@email.com</span>
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-person"></i>
+                    <span id="gender"><strong>Gender:</strong> Male</span>
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <span id="age"><strong>Age:</strong> 34</span>
+                </p>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+<!-- <div class="modal" id="bookingModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Booking Request Details</h2>
+
+            <button class="close-btn" >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="tourist-card">
+
+            <div class="tourist-info">
+
+                <img id="modalImage">
+
+                <div>
+                    <h3 id="modalName"></h3>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="booking-details">
+
+            <div class="detail-box">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <div>
+
+                    <span>Destination</span>
+
+                    <h4 id="modalDestination"></h4>
+
+                </div>
+
+            </div>
+
+            <div class="detail-box">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <div>
+
+                    <span>Date</span>
+
+                    <h4 id="modalDate"></h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="note">
+
+            <h4>
+                <i class="fa-regular fa-note-sticky"></i>
+                Special Note
+            </h4>
+
+            <p id="modalPlan"></p>
+
+        </div>
+
+        <div class="modal-buttons">
+
+            <button class="reject-btn" id="rejectBtn">
+                Reject Request
+            </button>
+
+            <button class="accept-btn" id="acceptBtn">
+                Accept Request
+            </button>
+
+        </div>
+
+    </div>
+
+</div> -->
+
+    <!--Booking Details Modal no ids yet-->
+
+    <!-- <div class="modal">
+
+    <div class="modal-content">
+
+    
+
+        <div class="modal-header">
+
+            <h2>Booking Request Details</h2>
+
+            <button class="close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+       
+
+        <div class="tourist-card">
+
+            <div class="tourist-info">
+
+                <img src="imgs/tourguide picture.png" alt="Tourist">
+
+                <div>
+
+                    <h3>Sarah Jenkins</h3>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+   
+
+        <div class="booking-details">
+
+            <div class="detail-box">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <div>
+
+                    <span>Destination</span>
+
+                    <h4>Giza Pyramids Complex</h4>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <div>
+
+                    <span>Date</span>
+
+                    <h4>Oct 25, 2024</h4>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="note">
+
+            <h4>
+
+                <i class="fa-regular fa-note-sticky"></i>
+
+                Special Note
+
+            </h4>
+
+            <p>
+
+                "We are interested in the history of the Great Sphinx
+                and would like a photo-friendly tour."
+
+            </p>
+
+        </div>
+
+        <div class="modal-buttons">
+
+            <button class="reject-btn">
+
+                Reject Request
+
+            </button>
+
+            <button class="accept-btn">
+
+                <i class="fa-regular fa-circle-check"></i>
+
+                Accept Request
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div> -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-about">
+
+            <h2>GuideMe</h2>
+
+            <p>
+                Connecting sophisticated travelers with Egypt's most elite
+                local storytellers and expert guides.
+            </p>
+
+            <div class="social-icons">
+
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h4>EXPLORE</h4>
+
+            <a href="../Html files/index.html">Find a Guide</a>
+
+            <a href="#">Popular Tours</a>
+
+            <a href="#">Cairo Experiences</a>
+
+            <a href="#">Luxor Adventures</a>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h4>GUIDES</h4>
+
+            <a href="../Html files/signup.html">Become a Guide</a>
+
+            <a href="#">Guide Standards</a>
+
+            <a href="#">Safety First</a>
+
+            <a href="#">Resources</a>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h4>LEGAL</h4>
+
+            <a href="#">Privacy Policy</a>
+
+            <a href="#">Terms of Service</a>
+
+            <a href="#">Cookies Policy</a>
+
+            <a href="#">Contact Support</a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+        © 2026 GuideMe Egypt. All rights reserved.
+    </p>
+
+</footer>
+
+    <script src="../Js files/profileTourGuide.js"></script>
+</body>
+
+</html>

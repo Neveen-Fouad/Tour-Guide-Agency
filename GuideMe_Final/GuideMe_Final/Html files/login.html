@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../Css files/login.css">
+    <title>Guide Me</title>
+</head>
+
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container" id="container">
+
+            <div class="form-container sign-up-container">
+                <form method="POST">
+
+                    <div class="icon">
+                        <a href="../Html files/landing.html"><i class="fa-solid fa-house"></i></a>
+                    </div>
+
+                    <h1 style="margin-top: 20px;">Welcome Back!</h1>
+
+
+                    <input type="email" id="email" placeholder="Email" required />
+                    <input type="password" id="password" placeholder="Password" required />
+
+                    <a href="#" id="forgetPassword"
+                        style="font-size: 0.8rem; text-decoration:none; color:#666; margin: 15px 0;">Forgot your
+                        password?</a>
+
+                    <button id="loginBtn" type="submit" class="btn-primary">Login</button>
+                </form>
+            </div>
+
+            <!-- overlay -->
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-right">
+                        <h1>Welcome</h1>
+                        <p>Sign in and complete your journey with us</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- pop up -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <h2>Forgot Password?</h2>
+            <p>Enter your email address to receive a password reset link.</p>
+            <input type="email" id="resetEmail" placeholder="Enter your email">
+            <button id="sendReset" class="btn-primary">Send</button>
+        </div>
+    </div>
+
+    <script src="../Js files/login.js"></script>
+</body>
+
+
+</html>/
